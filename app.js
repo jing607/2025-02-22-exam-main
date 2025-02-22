@@ -9,6 +9,7 @@ function App() {
   const [products, setProducts] = React.useState([]);
   const [filteredProducts, setFilteredProducts] = React.useState([]);
   const [categories, setCategories] = React.useState(['all'])
+  const [selectedCategory, setSelectCategory] = React.useState(['all'])
 
 
 
@@ -19,7 +20,9 @@ function App() {
       setFilteredProducts(response.data)
 
       const singleCategories = [...new Set(response.data.map(product => product.category))]
+      
       setCategories(['all', ...singleCategories])
+      console.log(singleCategories);
       
     } catch (error) { 
         alert(error)
@@ -44,11 +47,14 @@ function App() {
         <select
           className="p-2 border rounded-md"
           value={''}
-          onChange={() => {}}
+          onChange={(e) => setSelectedCategory(e.target.value)}
           >
+            {categories.map(category => (
           <option value={'類別 value'}>
-            類別 1
+            {category}
           </option>
+
+            ))}
         </select>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
